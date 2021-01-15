@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nginx Node Challenge</title>
+</head>
+<body>
+    <h1>Full Cycle Rocks!</h1>
+    <div id="list"></div>
+    <script>
+        fetch('http://localhost:8080/list')
+            .then(response => response.json())
+            .then(data => appendData(data))
+            .catch(error => console.log(error));
+        const appendData = data => {    
+            let container = document.getElementById('list');
+            for(let i = 0; i < data.length; i++) {
+                const div = document.createElement("div");
+                div.innerHTML = `Index: ${data[i].id} | Name: ${data[i].name}`;
+                container.appendChild(div);
+            }
+        }
+    </script>
+</body>
+</html>
