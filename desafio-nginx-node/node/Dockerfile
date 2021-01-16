@@ -4,9 +4,11 @@ WORKDIR /usr/src/app
 
 RUN apk update && apk add --no-cache wget openssl
 
-COPY package*.json ./
+COPY package.json .
 
 RUN npm install
+
+CMD [ "npm", "run", "dev" ]
 
 ENV DOCKERIZE_VERSION v0.6.1
 RUN wget https://github.com/jwilder/dockerize/releases/download/$DOCKERIZE_VERSION/dockerize-alpine-linux-amd64-$DOCKERIZE_VERSION.tar.gz \
