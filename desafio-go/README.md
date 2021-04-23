@@ -2,4 +2,4 @@
 
 ### Use the following command to run the application
 
-`docker run --rm kayphaz/codeeducation`
+`docker run --rm kayphaz/desafio-go`
