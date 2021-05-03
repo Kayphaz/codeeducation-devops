@@ -1,0 +1,51 @@
+version: "3"
+
+services:
+  nginx:
+    build:
+      context: ./nginx
+    image: kayphaz/nginx-custom
+    container_name: nginx
+    restart: always
+    networks:
+      - pfa-proxy-net
+    ports:
+      - "8000:80"
+    depends_on:
+      - node
+
+  node:
+    build:
+      context: ./node
+    image: kayphaz/node-custom
+    container_name: node
+    entrypoint: dockerize -wait tcp://db:3306 -timeout 20s npx nodemon ./app/index.js
+    networks:
+      - pfa-app-net
+      - pfa-proxy-net
+    volumes:
+      - ./node:/usr/src/app
+      - /usr/src/app/node_modules
+    tty: true
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    command: --innodb-use-native-aio=0
+    container_name: db
+    restart: always
+    tty: true
+    volumes:
+      - ./dbdata:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=nodedb
+      - MYSQL_ROOT_PASSWORD=root
+    networks:
+      - pfa-app-net
+
+networks:
+  pfa-app-net:
+    driver: bridge
+  pfa-proxy-net:
+    driver: bridge

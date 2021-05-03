@@ -8,7 +8,7 @@
 <body>
     <div id="list"></div>
     <script>
-        fetch('http://localhost:8080/list')
+        fetch('http://localhost:8000/list')
             .then(response => response.json())
             .then(data => appendData(data))
             .catch(error => console.log(error));
