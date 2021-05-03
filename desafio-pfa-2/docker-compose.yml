@@ -17,7 +17,7 @@ services:
   node:
     build:
       context: ./node
-    image: kayphaz/node-custom
+    image: kayphaz/tfa-node-2
     container_name: node
     entrypoint: dockerize -wait tcp://db:3306 -timeout 20s npx nodemon ./app/index.js
     networks:
