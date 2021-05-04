@@ -26,6 +26,6 @@ db.insert({name: 'Docker'}).into('modulos').then('Inserted');
 db.insert({name: 'Kubernetes'}).into('modulos').then('Inserted');
 db.insert({name: 'Observabilidade'}).into('modulos').then('Inserted');
 
-app.get('/list', (req, res) => db.select('*').table('modulos').then(names => res.json(names)));
+app.get('/', (req, res) => db.select('*').table('modulos').then(names => res.json(names)));
 
 app.listen(PORT, () => console.log(`Server running at localhost:${PORT}`));
