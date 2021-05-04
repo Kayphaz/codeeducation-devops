@@ -15,7 +15,7 @@ const app = express();
 
 const PORT = 3000;
 app.use(cors());
-app.use(express.static('./html'));
+// app.use(express.static('./html'));
 
 db.schema.createTableIfNotExists('modulos', table => {
     table.increments();
